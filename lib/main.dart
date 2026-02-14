@@ -45,10 +45,46 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
+  Widget _buildContent() {
+    if (selectedPage == "Home") {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ClipOval(
+            child: Image.asset(
+              'lib/assets/images/profile.jpeg', 
+              width: 120, 
+              height: 120, 
+              fit: BoxFit.cover
+            ),
+          ),
+          SizedBox(height: 16),
+          Text(
+            "John Lloyd Ducoy",
+            style: GoogleFonts.jetBrainsMono(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.amber.shade700,
+            ),
+          ),
+          SizedBox(height: 16),
+          Text(
+            "Flutter Developer | Computer Science Student",
+            style: GoogleFonts.jetBrainsMono(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.amber.shade500,
+            ),
+          ),
+        ],
+      );
+    }
+    return Text("Coming soon: $selectedPage");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       appBar: AppBar(
         leading: Builder(
           builder: (BuildContext context) {
@@ -81,6 +117,7 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  SizedBox(height: 10),
                   Text(
                     "John Lloyd Ducoy",
                     style: GoogleFonts.jetBrainsMono(
@@ -89,9 +126,9 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.amber.shade700,
                     ),
                   ),
-                  SizedBox(height: 4),
+                  SizedBox(height: 2),
                   Text(
-                    "Flutter Developer",
+                    "BS Computer Science",
                     style: GoogleFonts.jetBrainsMono(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -101,10 +138,104 @@ class _HomePageState extends State<HomePage> {
                 ], 
               ),
             ), 
+            ListTile(
+              leading: Icon(Icons.home, color: Colors.amber.shade700),
+              title: Text(
+                "Home",
+                style: GoogleFonts.jetBrainsMono(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.amber.shade700,
+                ),
+              ),
+              trailing: Icon(Icons.arrow_forward_ios, size: 16, color: Colors.amber.shade700),
+              onTap: () {
+                Navigator.pop(context);
+                setState(() {
+                  selectedPage = "Home";
+                });
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.person, color: Colors.amber.shade700),
+              title: Text(
+                "About",
+                style: GoogleFonts.jetBrainsMono(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.amber.shade700,
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                setState(() {
+                  selectedPage = "About";
+                });
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.lightbulb, color: Colors.amber.shade700),
+              title: Text(
+                "Skills",
+                style: GoogleFonts.jetBrainsMono(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.amber.shade700,
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                setState(() {
+                  selectedPage = "Skills";
+                });
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.email, color: Colors.amber.shade700),
+              title: Text(
+                "Contact",
+                style: GoogleFonts.jetBrainsMono(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.amber.shade700,
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                setState(() {
+                  selectedPage = "Contact";
+                });
+              },
+            ),
+            Divider(color: Colors.amber.shade200, thickness: 1, indent: 16, endIndent: 16),
+            ListTile(
+              leading: Icon(Icons.download, color: Colors.amber.shade700),
+              title: Text (
+                "Download CV",
+                style: GoogleFonts.jetBrainsMono(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.amber.shade700,
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                print("Download CV clicked");
+              }
+            ),
           ],
         ),
       ),
 
+      body: SingleChildScrollView(
+        controller: _scrollController,
+        child: Padding(
+          padding: EdgeInsets.all(20),
+          child: Center(
+            child: _buildContent(),
+          ),
+        ),
+      ),
     );
   }
 

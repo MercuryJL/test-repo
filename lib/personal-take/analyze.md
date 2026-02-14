@@ -13,7 +13,7 @@ class SimplePortfolioApp extends StatelessWidget {
       - singleton ensure one instace are created only, while providing global access point to instance.
       - same concept, different rules
 
-**SimplePortfolioApp({Key? key}**
+**SimplePortfolioApp({Key? key})**
    - this is the constructor
    - Question:
       - runApp(const SimplePortfolioApp()) - this does not have value, how?, does **key** automatically create a reference?
@@ -374,7 +374,8 @@ DrawerHeader(
   ),
 ),
 ```
-
+Properties explained:
+   - 
 **DrawHeader**
    - special widget meant for the top section of a Drawer
    - automatically gives me a nice height and spacing that looks "drawer-like"
@@ -393,5 +394,78 @@ DrawerHeader(
    - First is Text('My name', ...) big + bold += white
    - SizedBox(height: 4) adds a small vertical gap
    - Second Text("Flutter developer"...) smaller + color something semitransparent
+
+---
+# Add Navigation Menu Items
+```dart
+ListTile(
+  leading: Icon(Icons.home, color: Colors.blue),
+  title: Text('Home'),
+  onTap: () {
+    Navigator.pop(context);
+    setState(() {
+      selectedPage = 'Home';
+    });
+  },
+),
+ListTile(
+  leading: Icon(Icons.person, color: Colors.blue),
+  title: Text('About'),
+  onTap: () {
+    Navigator.pop(context);
+    setState(() {
+      selectedPage = 'About';
+    });
+  },
+),
+ListTile(
+  leading: Icon(Icons.lightbulb, color: Colors.blue),
+  title: Text('Skills'),
+  onTap: () {
+    Navigator.pop(context);
+    setState(() {
+      selectedPage = 'Skills';
+    });
+  },
+),
+ListTile(
+  leading: Icon(Icons.email, color: Colors.blue),
+  title: Text('Contact'),
+  onTap: () {
+    Navigator.pop(context);
+    setState(() {
+      selectedPage = 'Contact';
+    });
+  },
+),
+```
+
+**What each ListTile does**
+   - **leading: Icon(..)**
+      - Icon shown on the left
+   - **title: Text('Home')
+      - Label.
+   - **onTap**
+      - Runs when you tap the menu item
+
+Why **Navigator.pop(context);** is used
+   - When the drawer opens, Flutter treats it like it's on top of the current screen (like a route overlay).
+   - so:
+      ```dart
+      Navigator.pop(context);
+      ```
+      Means:
+         - "Close the drawer ang go back to the page."
+      If you remove this, the drawer stays open even after selecting.
+
+**Why setState(() { selectedPage = 'Home'; })**
+   - This is the key:
+      - **selectedPage** is a variable inside **_HomePageState**
+      - changing it tells your app "I want the body to show a different page"
+      - so after tapping, Flutter will re-run:
+         ```dart
+            Widget build(BuildContext context) { ... }
+         ```
+         and the UI can switch based on **selectedPage**
 
 
